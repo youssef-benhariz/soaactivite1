@@ -79,4 +79,23 @@ public class EtudiantBusiness {
         }
         return false;
     }
+    public List<Etudiant> getEtudiantsBycodeOption(int id){
+        List<Etudiant> result = new ArrayList<Etudiant>();
+        boolean salem;
+        salem = false;
+        for (Option o : optionBusiness.getListeOptions()){
+          if (o.getCodeOption()==id){
+              salem = true;
+              break;
+          }
+        };
+        if(salem) {
+            for (Etudiant e : etudiants) {
+                if (e.getOption() != null && e.getOption().getCodeOption() == id) {
+                    result.add(e);
+                }
+            }
+        };
+        return result;
+    }
 }

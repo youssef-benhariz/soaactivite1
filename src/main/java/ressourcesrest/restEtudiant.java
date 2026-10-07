@@ -1,6 +1,7 @@
 package ressourcesrest;
 
 import entities.Etudiant;
+import entities.EtudiantList;
 import entities.Option;
 import metiers.EtudiantBusiness;
 import metiers.OptionBusiness;
@@ -70,12 +71,12 @@ public class restEtudiant {
     @Produces(MediaType.APPLICATION_XML)
     public Response getAllOptions(@QueryParam("codeOption") int optionCode ){
         List<Etudiant> l = new ArrayList<Etudiant>();
-        Option achercher = new Option(optionCode);
-        l=et.getEtudiantsByOption(achercher);
+        l=et.getEtudiantsBycodeOption(optionCode);
         if (l.isEmpty()){
             return Response.status(404).build();
         }else{
-            return Response.status(200).entity(l).build();
+            EtudiantList convertisseurversxml = new EtudiantList(l);
+            return Response.status(200).entity(convertisseurversxml).build();
         }
 
     }
